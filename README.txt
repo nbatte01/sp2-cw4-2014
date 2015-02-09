@@ -14,3 +14,12 @@ PORT and STARBOARD checks have been implemented in the 'okToPlaceShipAt' method 
 
 Next steps
 further testing on the PORT and STARBOARD checks needs to take place along with reducing the size of the 'okToPlaceShipAt' method in the Ship class
+
+
+
+THIRD COMMIT (08/02/2015)
+—————————————————————————————
+The ‘shootAt’ method in the ‘Ocean’ class has been completed and the ‘placeShipAt’ method in the ‘Ship’ class has been complete
+
+Next Steps
+Both methods implemented in this commit need further test to ensure functionality. ‘okToPlaceShipAt’ method has to be expanded to check for the grid locations that are diagonal to the ship

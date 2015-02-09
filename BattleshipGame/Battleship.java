@@ -21,6 +21,6 @@ public class Battleship extends Ship
     //returns a single character String to use in the ocean's print method
     @Override public String toString()
     {
-        return ("S");
+        return (" B ");
     }
 }

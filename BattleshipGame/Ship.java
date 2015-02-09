@@ -88,6 +88,7 @@ public class Ship
     
     //NEEDS FURTHER TESTING TO ENSURE PORT AND STARBOARD CHECKS ARE FUNCTIONING CORRECTLY 
     //SIZE OF METHOD NEEDS TO BE REDUCED
+    //NEED TO ADD CHECKS FOR DIAGONAL GRID LOCATIONS
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean)
     {
         System.out.println("OKtoPlace() is checking:"+"R"+row+"C"+column);
@@ -104,6 +105,7 @@ public class Ship
         {
         	if((this.getLength() + column) <= 10)//can ship fit on grid
             {
+        		System.out.println("Ship can fit on grid with the current coordinates");
         		fitsOnGrid = true;
         		System.out.println("UNDERNEATH ship is being checked");
             	for(int i = 0 ; i < this.getLength() ; i++)
@@ -160,6 +162,10 @@ public class Ship
             	}
             	
             }
+        	else
+        	{
+        		System.out.println("The ship can NOT fit on the grid under the current coordinates");
+        	}
         	if((port == true) && (starboard == true) && (end1 == true) && (end2 == true) && (clearSpace == true) && (fitsOnGrid == true))//if all checks have passed
         	{
         		return true;
@@ -243,10 +249,22 @@ public class Ship
     
     //puts the ship into the ocean. This involves giving values to the bowRow
     //bowColumn and horizontal instance variables in the intance of the ship class
-    //it also involves adjusting the ship array in the Ocean object (class?)
-    static void placeShipAt(int row, int column, boolean horizontal, Ocean ocean)
+    //requests the grid array from the ocean class and fills the relevant elements of the array with the 
+    //relevant ship. The method will cycle through the grid array depending on the length of the current ship
+    //ADDITIONAL CHECKS NEED TO BE CARRIED OUT BEFORE THIS METHOD IS FINALISED
+    void placeShipAt(int tempRow, int tempColumn, boolean tempHorizontal, Ocean ocean)
     {
-        
+    	this.setBowRow(tempRow);
+    	this.setBowColumn(tempColumn);
+    	this.setHorizontal(tempHorizontal);
+		
+		for(int i = 0; i < this.getLength(); i++){
+			if (horizontal == true){
+				ocean.getShipArray()[this.getBowRow()][this.getBowColumn() + i] = this;
+			} else {
+				ocean.getShipArray()[this.getBowRow() + i][this.getBowColumn()] = this;
+			}
+		}
     }
     
     //if part of the ship occupies the given row and column and the ship hasn't been sunk
@@ -261,7 +279,7 @@ public class Ship
         return check;
     }
     
-    //checks the hit array if every element says the ship is sunk then return true
+    //checks the hit array if every element says the ship is sunk then returns true
     boolean isSunk()
     {
         boolean check = true;
@@ -270,10 +288,13 @@ public class Ship
             if(hit[i] == false) //cycles through 
             {
                 check = false;
-                break;
             }
         }
         return check;
     }
+    
+    
+    
+    
     
 }

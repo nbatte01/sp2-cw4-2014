@@ -122,7 +122,7 @@ public class Ocean
                 	System.out.println("R"+tempRow + " C" + tempColumn + " "+"is a good location");
                 	System.out.println("The "+current.getShipType()+" will be placed at"+"R"+tempRow + " C" + tempColumn);
 
-                	//Ship.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
+                	current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
                 	System.out.println();
                 	
                 	check = true;
@@ -196,8 +196,27 @@ public class Ocean
     {
         boolean check = false;
         
+        Ship current = grid[row][column];
+ 
+        shotsFired++; //regardless of what happens in the method, an additional shot has been fired
         
-        
+        if(isOccupied(row,column)==true)//if location contains a ship
+        {
+        	if(current.isSunk()==false)//if the boat is still afloat
+        	{
+        		current.shootAt(row, column);
+        		hitCount++;
+        		check = true;
+        	}
+        	else//if the boat has already been sunk
+        	{
+        		check = false;
+        	}
+        }
+        else//if shooting at an empty sea
+        {
+        	check = false;
+        }
         
         return check;
     }
@@ -228,6 +247,11 @@ public class Ocean
         
         
         return check;
+    }
+    
+    Ship[][] getShipArray()
+    {
+    	return grid;
     }
     
     //used only for dev and testing as this will return the real array of where the ships are

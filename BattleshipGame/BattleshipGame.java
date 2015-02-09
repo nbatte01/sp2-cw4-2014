@@ -29,9 +29,9 @@ public class BattleshipGame
         //Used for checking which object occupies the chosen location
         while(!game.isGameOver())
         {
-        	System.out.print("Please enter a row");
+        	System.out.print("Please enter a row: ");
         	int row = in.nextInt();
-        	System.out.print("Please enter a column");
+        	System.out.print("Please enter a column: ");
         	int column = in.nextInt();
         	game.checkPosition(row, column);
         	
