@@ -23,3 +23,11 @@ The ‘shootAt’ method in the ‘Ocean’ class has been completed and the ‘
 
 Next Steps
 Both methods implemented in this commit need further test to ensure functionality. ‘okToPlaceShipAt’ method has to be expanded to check for the grid locations that are diagonal to the ship
+
+
+FOURTH COMMIT (12/02/2015)
+—————————————————————————————
+A temp method titled ‘okToPlaceShipAt2’ has been created to compress the original ‘okToPlaceShipAt’ method without deleting the working version 
+
+Next Steps 
+further compression of the ‘okToPlaceShipAt2’method

@@ -116,7 +116,7 @@ public class Ocean
             		System.out.println("orientation: vertical");
             	}
             	
-            	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
+            	if(current.okToPlaceShipAt2(tempRow, tempColumn, tempHorizontal, this))
                 {
                 	
                 	System.out.println("R"+tempRow + " C" + tempColumn + " "+"is a good location");
@@ -263,6 +263,7 @@ public class Ocean
     
     //prints the ocean to the user. This will print the current status of the game 
     //in the form of the array. It must only be called from the battleshipgame class 
+    //prints the relevant grid elements based on how the game is playing out instead of the actual location of the ships 
     void print()
     {
         
