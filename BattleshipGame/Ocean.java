@@ -106,17 +106,7 @@ public class Ocean
             
             while(!check)
             {
-            	//ships current position
-            	if(tempHorizontal)
-            	{
-            		System.out.println("orientation: horizontal");
-            	}
-            	else
-            	{
-            		System.out.println("orientation: vertical");
-            	}
-            	
-            	if(current.okToPlaceShipAt2(tempRow, tempColumn, tempHorizontal, this))
+            	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
                 {
                 	
                 	System.out.println("R"+tempRow + " C" + tempColumn + " "+"is a good location");
@@ -192,6 +182,7 @@ public class Ocean
     //users fires at the same coordinates and the ship is still afloat. once the
     //ship has completly sunk then the method will return false if the user fires at 
     //the same coordinates
+    //WORK IN CONJUNCTION WITH THE shootAt METHOD IN SHIP
     boolean shootAt(int row, int column)
     {
         boolean check = false;

@@ -31,3 +31,11 @@ A temp method titled ‘okToPlaceShipAt2’ has been created to compress the ori
 
 Next Steps 
 further compression of the ‘okToPlaceShipAt2’method
+
+
+FIFTH COMMIT (LATE 12/02/2015)
+——————————————————————————————
+‘okToPlaceShipAt2’ has been compressed and ‘okToPlaceShipAt’ has been deleted. the name of ‘okToPlaceShipAt2’ has then been changed back to ‘okToPlaceShipAt’ to meet assignment specification standards
+
+Next Steps
+Complete the ‘shootAt’ method in the Ship class

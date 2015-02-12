@@ -33,7 +33,7 @@ public class BattleshipGame
         	int row = in.nextInt();
         	System.out.print("Please enter a column: ");
         	int column = in.nextInt();
-        	game.checkPosition(row, column);
+        	game.shootAt(row, column);
         	
         }
         
