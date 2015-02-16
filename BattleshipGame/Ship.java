@@ -168,6 +168,9 @@ public class Ship
 		
 		for(int i = 0; i < this.getLength(); i++)
 		{
+			//adds permanent instance of each ship to the grid in the ocean class instead of the temp instances that were used 
+			//to check to find a suitable place for each ship. The grid array will be used for all functions in the rest of the 
+			//classes to access the functionality of the project
 			if (horizontal == true)
 			{
 				ocean.getShipArray()[this.getBowRow()][this.getBowColumn() + i] = this;
