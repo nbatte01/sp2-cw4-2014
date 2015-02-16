@@ -61,13 +61,16 @@ public class Ocean
         //first generate a random row, column and position then send this to 
         //the oktoplaceshipat method in the ship class. if this return true then the position
         //is ok to use. Once the true valeu has been returned then send the current coordinates
-        //and the position (horizontal / vertical) to the placeshipat method in the ship class to 
+        //and the position (horizontal / vertical) to the placeship at method in the ship class to 
         //place the ship on the current coordinates
 		
 		Ship current = new Ship();
 		
 		for (int i = 0; i < NUMOFSHIPS; i++) {
 			
+			//creates a temp instance of each ship in the Ship class. Once the class has found a good place to put the ship
+			//then a permanent instance of the ship will be added to the 'grid' array using the variables created by these 
+			//temp instances
 			if(i == 0)
 			{
 				current= new Battleship();
@@ -96,12 +99,12 @@ public class Ocean
             
             while(!check)
             {
-            	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
+            	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))//if ok to place ship at current location
                 {
                 	current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
                 	check = true;
                 }
-            	else
+            	else//if the current location isn't good to place the current ship
             	{
                 	//generates a new set of random numbers
                 	tempRow = randomCoordinateGenerator(GRIDSIZE);
@@ -276,7 +279,6 @@ public class Ocean
             	}
             	else//empty sea
             	{
-            		
             		System.out.print(grid[a][b]); //prints the empty sea
             	}
             }
