@@ -9,7 +9,7 @@ public class Cruiser extends Ship
     Cruiser()
     {
         length = 3;
-        initialiseHitArray(); //re-initialise the hit array for the length of the current ship
+        setHitArray(); //re-initialise the hit array for the length of the current ship
     }
     
     //returns the type of ship
@@ -21,6 +21,14 @@ public class Cruiser extends Ship
     //returns a single character String to use in the ocean's print method
     @Override public String toString()
     {
-        return (" C ");
+    	if(this.isSunk())
+        {
+        	return (" X ");
+        }
+        else
+        {
+        	return (" . ");
+        }
+        
     }
 }

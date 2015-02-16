@@ -9,7 +9,7 @@ public class Destroyer extends Ship
     Destroyer()
     {
         length = 2;
-        initialiseHitArray(); //re-initialise the hit array for the length of the current ship
+        setHitArray(); //re-initialise the hit array for the length of the current ship
     }
     
     //returns the type of ship
@@ -21,6 +21,13 @@ public class Destroyer extends Ship
     //returns a single character String to use in the ocean's print method
     @Override public String toString()
     {
-        return (" D ");
+    	if(this.isSunk())
+        {
+        	return (" X ");
+        }
+        else
+        {
+        	return (" . ");
+        }
     }
 }

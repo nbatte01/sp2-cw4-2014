@@ -11,7 +11,7 @@ public class BattleshipGame
         
         Ocean game = new Ocean(); //this generates the blank 
         game.placeAllShipsRandomly(); //generates the ships positions on the empty ocean array
-        game.print(); // prints the array for the user to see before he/she chooses her first shot
+        System.out.println();//used to provide a gap at the top of the output
         
         //while the game has not finished
         /*while(game.isGameOver() == false)
@@ -29,12 +29,21 @@ public class BattleshipGame
         //Used for checking which object occupies the chosen location
         while(!game.isGameOver())
         {
+        	
+        	game.print(); // prints the array for the user to see before he/she chooses her first shot
+        	System.out.println();
         	System.out.print("Please enter a row: ");
         	int row = in.nextInt();
         	System.out.print("Please enter a column: ");
         	int column = in.nextInt();
+        	System.out.println();
         	game.shootAt(row, column);
         	
+        	
+        }
+        if(game.isGameOver())//once all ships have been sunk
+        {
+        	System.out.println("You have sunk all the ships! Congratulations!");
         }
         
         in.close(); //closes the scanner 

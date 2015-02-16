@@ -63,11 +63,6 @@ public class Ocean
         //is ok to use. Once the true valeu has been returned then send the current coordinates
         //and the position (horizontal / vertical) to the placeshipat method in the ship class to 
         //place the ship on the current coordinates
-        
-		//used solely to improve visual of output
-		System.out.println("nick");
-		
-		
 		
 		Ship current = new Ship();
 		
@@ -95,11 +90,6 @@ public class Ocean
 			int tempRow = randomCoordinateGenerator(GRIDSIZE);
             int tempColumn = randomCoordinateGenerator(GRIDSIZE);
             boolean tempHorizontal = randomHorizontalGenerator();
-            
-            //used for temp testing
-            System.out.println("Ship number: "+(i+1)+" "+current.getShipType());
-            System.out.println("-----------------------------------------");
-            System.out.println("Ship length: "+current.getLength());
         
         	//-----------------------------------------------------------
             boolean check = false;
@@ -108,29 +98,17 @@ public class Ocean
             {
             	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
                 {
-                	
-                	System.out.println("R"+tempRow + " C" + tempColumn + " "+"is a good location");
-                	System.out.println("The "+current.getShipType()+" will be placed at"+"R"+tempRow + " C" + tempColumn);
-
                 	current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
-                	System.out.println();
-                	
                 	check = true;
                 }
             	else
             	{
-            		System.out.println("R"+tempRow + "C" + tempColumn + " "+"is NOT a good location");
-                	
                 	//generates a new set of random numbers
                 	tempRow = randomCoordinateGenerator(GRIDSIZE);
                     tempColumn = randomCoordinateGenerator(GRIDSIZE);
                     tempHorizontal = randomHorizontalGenerator();
-                    
-                    
-                    System.out.println();
             	}
             }
-            System.out.println();
 		}
     
     }
@@ -149,16 +127,6 @@ public class Ocean
     	{
     		check = true;
     	}
-    	System.out.println("isOcc is checking Row:"+row+" and column:"+column);
-    	if(check)
-    	{
-    		System.out.println("There is a ship at this location");
-    	}
-    	else
-    	{
-    		System.out.println("There is not a ship at this location");
-    	}
-    	System.out.println();
         return check;
     }
     
@@ -198,17 +166,31 @@ public class Ocean
         		current.shootAt(row, column);
         		hitCount++;
         		check = true;
+        		if(current.isSunk())
+        		{
+        			shipsSunk++;
+        			System.out.println("You just sank boat number:"+shipsSunk);
+        			System.out.println("Which was a "+ current.getShipType());
+        		}
+        		else
+        		{
+        			System.out.println("You just hit part of a ship!");
+        		}
         	}
         	else//if the boat has already been sunk
         	{
+        		System.out.println("That ship has already been sunk!");
         		check = false;
         	}
         }
         else//if shooting at an empty sea
         {
+        	System.out.println("You didn't hit anything!");
+        	current.hit[0] = true;//marks the empty sea array as true and thus ensuring the correct character is printed once the user has fired at this location
         	check = false;
         }
-        
+        System.out.println("There are "+(10-shipsSunk)+" boats left to sink!");
+        System.out.println();
         return check;
     }
     
@@ -235,8 +217,10 @@ public class Ocean
     boolean isGameOver()
     {
         boolean check = false;
-        
-        
+        if(shipsSunk == 10)
+        {
+        	check = true;
+        }
         return check;
     }
     
@@ -258,19 +242,43 @@ public class Ocean
     void print()
     {
         
-        for(int i = 0 ;i < GRIDSIZE ; i++)
+        
+        for(int i = 0 ;i < GRIDSIZE ; i++)//prints the columns headers
         {
             System.out.print("  " + i);
         }
             
         System.out.println();
 
-        for(int a = 0 ; a < GRIDSIZE ; a++)
+        for(int a = 0 ; a < GRIDSIZE ; a++)//prints each row starting with the row numbers
         {
             System.out.print(a);
             for(int b = 0 ; b < GRIDSIZE ; b++)
             {
-                System.out.print(grid[a][b]);
+            	Ship current = grid[a][b];
+            	if(isOccupied(a,b))
+            	{
+            		if(current.isSunk())//ship has sunk
+            		{
+            			System.out.print(" X ");
+            		}
+            		else//still afloat
+            		{
+            			if(current.sectionHit(a,b))
+                		{
+                			System.out.print(" $ "); //IF THAT SECTION OF THE SHIP HAS BEEN HIT
+                		}
+                		else
+                		{
+                			System.out.print(grid[a][b]);//IF THAT SECTION OF THE SHIP HAS NOT BEEN HIT RETURN THE DEFAULT
+                		}
+            		}
+            	}
+            	else//empty sea
+            	{
+            		
+            		System.out.print(grid[a][b]); //prints the empty sea
+            	}
             }
             System.out.println();
         }

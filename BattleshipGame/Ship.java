@@ -1,5 +1,7 @@
 package BattleshipGame;
 
+import java.util.Arrays;
+
 public class Ship
 {
     //instance variables
@@ -15,7 +17,7 @@ public class Ship
     
     //an array of booleans telling whether that part of the ship has been hit 
     //beleive this will be called to check whether the ship has been sunk
-    private boolean[] hit;
+    boolean[] hit;
     
     //getters
     
@@ -25,7 +27,7 @@ public class Ship
         return bowRow;
     }
     
-    void initialiseHitArray()
+    void setHitArray()
     {
         hit = new boolean[this.getLength()]; //generates a new arrays with the length based on the length of the ship
         for(int i = 0 ; i < this.getLength() ; i++)
@@ -186,25 +188,72 @@ public class Ship
     {
         boolean check = false;
         
+        
+        
+        if(this.isSunk()==false)
+        {
+        	if(this.isHorizontal())//horizontal
+            {
+            	int position = column - this.getBowColumn();
+            	this.hit[position]=true;
+            	check =  true;
+            }
+            else//vertical
+            {
+            	int position = row - this.getBowRow();
+            	this.hit[position]=true;
+            	check =   true;
+            }
+        }
+        
+        //System.out.println(Arrays.toString(this.hit));
+        
         return check;
     }
     
     //checks the hit array if every element says the ship is sunk then returns true
     boolean isSunk()
     {
-        boolean check = true;
-        for(int i = 0 ; i<hit.length;i++)
+    	
+        for(int i = 0 ; i<this.hit.length;i++)
         {
-            if(hit[i] == false) //cycles through 
+            if(this.hit[i] == false) //cycles through the hit array 
             {
-                check = false;
+            	return false;
             }
         }
-        return check;
+        return true;
+    }
+    
+    
+    //returns true if the section has been hit
+    boolean sectionHit(int row, int column)
+    {
+    	boolean check = false;
+    	int position;
+    	
+    	if(this.isHorizontal())//horizontal
+    	{
+    		position = column - this.getBowColumn();
+    	}
+    	else
+    	{
+    		position = row - this.getBowRow();
+    	}
+    	if(hit[position]==true)
+		{
+			check = true;
+		}
+    	
+    	
+    	return check;
     }
     
     
     
     
     
-}
+    }
+    
+    
+    

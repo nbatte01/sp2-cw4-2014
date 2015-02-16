@@ -1,5 +1,7 @@
 package BattleshipGame;
 
+
+
 public class Battleship extends Ship
 {
     
@@ -9,7 +11,7 @@ public class Battleship extends Ship
     Battleship()
     {
         length = 4;
-        initialiseHitArray(); //re-initialise the hit array for the length of the current ship 
+        setHitArray(); //re-initialise the hit array for the length of the current ship 
     }
     
     //returns the type of ship
@@ -21,6 +23,16 @@ public class Battleship extends Ship
     //returns a single character String to use in the ocean's print method
     @Override public String toString()
     {
-        return (" B ");
+    	if(this.isSunk())
+        {
+        	return (" X ");
+        }
+        else
+        {
+        	return (" . ");
+        }
     }
+    
+    
+    
 }

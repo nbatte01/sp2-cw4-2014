@@ -39,3 +39,11 @@ FIFTH COMMIT (LATE 12/02/2015)
 
 Next Steps
 Complete the ‘shootAt’ method in the Ship class
+
+
+SIXTH COMMIT (16/02/2015)
+———————————————————————————————
+The ‘shootAt’ methods in the ‘Ship’ and ‘Ocean’ classes have been completed along with the ‘print’ method in the ‘Ocean’ class. The ‘EmptySea’ class has been given a hit array like all the other boat so that the correct character can be printed by the ‘print’ method. The logic behind the game is functioning correctly however further testing must be completed
+
+Next Steps 
+Finalise the UI of the game in the ‘BattleshipGame’ class and tidy all methods for excess code that was used only during development. 

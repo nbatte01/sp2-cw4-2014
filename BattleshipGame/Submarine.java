@@ -9,7 +9,7 @@ public class Submarine extends Ship
     Submarine()
     {
         length = 1;
-        initialiseHitArray(); //re-initialise the hit array for the length of the current ship
+        setHitArray(); //re-initialise the hit array for the length of the current ship
     }
     
     //returns the type of ship
@@ -21,6 +21,13 @@ public class Submarine extends Ship
     //returns a single character String to use in the ocean's print method
     @Override public String toString()
     {
-        return (" S ");
+    	if(this.isSunk())
+        {
+        	return (" X ");
+        }
+        else
+        {
+        	return (" . ");
+        }
     }
 }
