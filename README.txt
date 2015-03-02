@@ -47,3 +47,7 @@ The ‘shootAt’ methods in the ‘Ship’ and ‘Ocean’ classes have been co
 
 Next Steps 
 Finalise the UI of the game in the ‘BattleshipGame’ class and tidy all methods for excess code that was used only during development. 
+
+SEVENTH COMMIT (02/03/2015)
+————————————————————————————————
+All classes have been refined and the entire game is now complete. It must be noted that the individual subclasses of ships still have different letters which all need to be changed to ‘.’ before submission of assignment

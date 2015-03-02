@@ -2,10 +2,6 @@ package BattleshipGame;
 
 public class Submarine extends Ship
 {
-    
-    
-    //constructor
-    
     Submarine()
     {
         length = 1;
@@ -27,7 +23,7 @@ public class Submarine extends Ship
         }
         else
         {
-        	return (" . ");
+        	return (" S ");
         }
     }
 }

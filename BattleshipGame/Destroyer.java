@@ -2,10 +2,6 @@ package BattleshipGame;
 
 public class Destroyer extends Ship
 {
-    
-    
-    //constructor
-    
     Destroyer()
     {
         length = 2;
@@ -27,7 +23,7 @@ public class Destroyer extends Ship
         }
         else
         {
-        	return (" . ");
+        	return (" D ");
         }
     }
 }

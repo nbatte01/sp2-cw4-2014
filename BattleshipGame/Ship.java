@@ -1,25 +1,13 @@
 package BattleshipGame;
 
-import java.util.Arrays;
-
 public class Ship
 {
-    //instance variables
-    //the row (0 - 9) which contains the bow (front) of the ship
-    //all ships will be pointing up or left
     private int bowRow;
-    //the column that contains the bow of the ship
     private int bowColumn;
-    //the number of squares occupied by the ship. An empty sea object has length 1
-    static int length;
-    //true if the ship is horizontal, false otherwise
+    int length;
     private boolean horizontal;
-    
-    //an array of booleans telling whether that part of the ship has been hit 
-    //beleive this will be called to check whether the ship has been sunk
     boolean[] hit;
     
-    //getters
     
     //returns the row in which the bow is located
     int getBowRow()
@@ -27,6 +15,7 @@ public class Ship
         return bowRow;
     }
     
+    //Initializes the hit array 
     void setHitArray()
     {
         hit = new boolean[this.getLength()]; //generates a new arrays with the length based on the length of the ship
@@ -49,7 +38,6 @@ public class Ship
     }
     
     //returns the type of this ship 
-    //apparently it doesn't matter what this method returns?? needs to be confirmed
     String getShipType()
     {
         return ("test");
@@ -61,12 +49,10 @@ public class Ship
         return length;
     }
     
-    //setters
-    
     //sets the value of the bowRow
     void setBowRow(int row)
     {
-        this.bowRow = row;//needs to be double checked
+        this.bowRow = row;
     }
     
     //sets the value of bowColumn
@@ -109,11 +95,11 @@ public class Ship
     	
     	if(horizontal)
     	{
-    		if(column == 0)//far left
+    		if(column == 0)
     		{
     			left = column;
     		}
-    		else if(column+(this.getLength()-1) == 9)//far right
+    		else if(column+(this.getLength()-1) == 9)
     		{
 				right = column+this.getLength()-1;	
     		}
@@ -131,17 +117,17 @@ public class Ship
     	}
     	else//vertical
     	{
-    		if(row==0)//at the top
+    		if(row==0)
     		{
     			top = row;
     		}
-    		else if((row+this.getLength()-1)==9)//at the bottom
+    		else if((row+this.getLength()-1)==9)
     		{
     			bottom = row+this.getLength() - 1;
     		}
-    		for(int a = holder ; a < holder2 ; a++)//columns
+    		for(int a = holder ; a < holder2 ; a++)
 			{
-				for(int b = top ; b <= bottom ; b++)//rows
+				for(int b = top ; b <= bottom ; b++)
 				{
 					if(ocean.isOccupied(b, (column+a)))
 					{
@@ -151,76 +137,60 @@ public class Ship
 			}
     		
     	}
-    	return true; //if all checks have passed successfully
+    	return true; 
     }
     
-
     //puts the ship into the ocean. This involves giving values to the bowRow
-    //bowColumn and horizontal instance variables in the intance of the ship class
+    //bowColumn and horizontal instance variables in the instance of the ship class
     //requests the grid array from the ocean class and fills the relevant elements of the array with the 
     //relevant ship. The method will cycle through the grid array depending on the length of the current ship
-    //ADDITIONAL CHECKS NEED TO BE CARRIED OUT BEFORE THIS METHOD IS FINALISED
-    void placeShipAt(int tempRow, int tempColumn, boolean tempHorizontal, Ocean ocean)
+    void placeShipAt(int row, int column, boolean horizontal, Ocean ocean)
     {
-    	this.setBowRow(tempRow);
-    	this.setBowColumn(tempColumn);
-    	this.setHorizontal(tempHorizontal);
+    	this.setBowRow(row);
+    	this.setBowColumn(column);
+    	this.setHorizontal(horizontal);
 		
 		for(int i = 0; i < this.getLength(); i++)
 		{
-			//adds permanent instance of each ship to the grid in the ocean class instead of the temp instances that were used 
-			//to check to find a suitable place for each ship. The grid array will be used for all functions in the rest of the 
-			//classes to access the functionality of the project
 			if (horizontal == true)
 			{
-				ocean.getShipArray()[this.getBowRow()][this.getBowColumn() + i] = this;
+				ocean.getShipArray()[row][column + i] = this;
 			} 
 			else //vertical
 			{
-				ocean.getShipArray()[this.getBowRow() + i][this.getBowColumn()] = this;
+				ocean.getShipArray()[row + i][column] = this;
 			}
 		}
     }
     
     //if part of the ship occupies the given row and column and the ship hasn't been sunk
-    //mark that part of the ship as hit and return true. Otherwise if 
-    //return true if the shot hits the ship and the ship is still afloat
-    //not sure if this should return true if the same coordinates are used for a 
-    //floating ship
+    //mark that part of the ship as hit and return true. 
     boolean shootAt(int row, int column)
     {
-        boolean check = false;
-        
-        
-        
-        if(this.isSunk()==false)
+        if(!this.isSunk())
         {
         	if(this.isHorizontal())//horizontal
             {
             	int position = column - this.getBowColumn();
             	this.hit[position]=true;
-            	check =  true;
+            	return true;
             }
             else//vertical
             {
             	int position = row - this.getBowRow();
             	this.hit[position]=true;
-            	check =   true;
+            	return true;
             }
         }
-        
-        //System.out.println(Arrays.toString(this.hit));
-        
-        return check;
+        return false;
     }
     
-    //checks the hit array if every element says the ship is sunk then returns true
+    //checks the hit array if every element is true then returns true
     boolean isSunk()
     {
-    	
         for(int i = 0 ; i<this.hit.length;i++)
         {
-            if(this.hit[i] == false) //cycles through the hit array 
+            if(!this.hit[i]) //cycles through the hit array 
             {
             	return false;
             }
@@ -228,28 +198,20 @@ public class Ship
         return true;
     }
     
-    
     //returns true if the section has been hit
     boolean sectionHit(int row, int column)
     {
-    	boolean check = false;
     	int position;
     	
     	if(this.isHorizontal())//horizontal
     	{
     		position = column - this.getBowColumn();
     	}
-    	else
+    	else//Vertical
     	{
     		position = row - this.getBowRow();
     	}
-    	if(hit[position]==true)
-		{
-			check = true;
-		}
-    	
-    	
-    	return check;
+    	return hit[position];
     }
     
     

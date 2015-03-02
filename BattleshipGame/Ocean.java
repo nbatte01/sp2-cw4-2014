@@ -4,35 +4,25 @@ import java.util.Random;
 //import java.util.ArrayList;
 
 public class Ocean
-{
-    //Instance variable is the variable declared inside a class, but outside a method
-    
-    //The number of shots that have been fired by the user
+{   
     private int shotsFired;
-    //The number of times a user's shot hits a ship. This increases even if the user hits the same part of the ship
     private int hitCount;
-    //the number of ships that have been sunk max = 10
     private int shipsSunk;
     
     private final int GRIDSIZE = 10;
     private final int NUMOFSHIPS = 10;
     
-    static //This fills an array with 10 by 10 instances of the ship class
     Ship[][] grid = new Ship[10][10];
     
     Random rnd = new Random();
-    
-    //constructor class that will create an empty ocean 
-    //fills the "ships array with emptysea objects
-    //will also intialise any game variables such as the instance variables above
-    Ocean()//constructor 
+
+    //Constructor class that also fills the grid array with instances of the EmptySea class
+    Ocean()
     {
-        // initialise instance variables
         shotsFired = 0;
         hitCount = 0;
         shipsSunk = 0;
         
-        //generate the 10 x 10 array with emptySea objects //needs to be moved out of the constructor method
         for(int a = 0 ; a < GRIDSIZE ; a++)
         {
             for(int b = 0 ; b < GRIDSIZE ; b++)
@@ -42,118 +32,48 @@ public class Ocean
         }
         
     }
-    
-    //Used to check which ship current occupies the chosen coordinates
-    void checkPosition(int row, int column)
-    {
-    	Ship current = grid[row][column];
-    	System.out.print("currently occupied by: ");
-    	System.out.println(current.getShipType());
-    	
-    }
-    
-    //places all ships randomly ont he array. these will overwrite the
-    //emptysea objects that have already been created.
-    //Larger ships must be palced before smaller ones
-    //random must be used to choose the location of the ships
+
+    //Places all ships randomly onto the grid by firstly generating a random Row, Column and horizontal(boolean variable) 
+    //then calling the 'okToPlaceShipAt' method in the Ship class to check whether the position is ok. If so the current ship
+    //is placed on the coordinates and the process repeats for each ship. 
     public void placeAllShipsRandomly()
-    {
-        //first generate a random row, column and position then send this to 
-        //the oktoplaceshipat method in the ship class. if this return true then the position
-        //is ok to use. Once the true valeu has been returned then send the current coordinates
-        //and the position (horizontal / vertical) to the placeship at method in the ship class to 
-        //place the ship on the current coordinates
-		
+    {		
 		Ship current = new Ship();
 		
-		for (int i = 0; i < NUMOFSHIPS; i++) {
+		for (int i = 0; i < NUMOFSHIPS; i++) 
+		{
+			if(i == 0)current= new Battleship();
+			if(i >= 1)current = new Cruiser();
+			if(i >= 3)current= new Destroyer();
+			if(i > 5)current = new Submarine();
 			
-			//creates a temp instance of each ship in the Ship class. Once the class has found a good place to put the ship
-			//then a permanent instance of the ship will be added to the 'grid' array using the variables created by these 
-			//temp instances
-			if(i == 0)
-			{
-				current= new Battleship();
-			}
-			if(i >= 1)
-			{
-				current = new Cruiser();
-			}
-			if(i >= 3)
-			{
-				current= new Destroyer();
-			}
-			if(i > 5)
-			{
-				current = new Submarine();
-			}
-			
-			
-			
-			int tempRow = randomCoordinateGenerator(GRIDSIZE);
-            int tempColumn = randomCoordinateGenerator(GRIDSIZE);
-            boolean tempHorizontal = randomHorizontalGenerator();
-        
-        	//-----------------------------------------------------------
-            boolean check = false;
+			int tempRow = rnd.nextInt(GRIDSIZE - 0);
+            int tempColumn = rnd.nextInt(GRIDSIZE - 0);
+            boolean tempHorizontal = rnd.nextBoolean();
             
-            while(!check)
+            while(!current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
             {
-            	if(current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))//if ok to place ship at current location
-                {
-                	current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
-                	check = true;
-                }
-            	else//if the current location isn't good to place the current ship
-            	{
-                	//generates a new set of random numbers
-                	tempRow = randomCoordinateGenerator(GRIDSIZE);
-                    tempColumn = randomCoordinateGenerator(GRIDSIZE);
-                    tempHorizontal = randomHorizontalGenerator();
-            	}
+                	tempRow = rnd.nextInt(GRIDSIZE - 0);
+                    tempColumn = rnd.nextInt(GRIDSIZE - 0);
+                    tempHorizontal = rnd.nextBoolean();
             }
+            current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
 		}
-    
     }
     
-    
-    
-    
-    //returns true if the given location contains a ship and false if
-    //it doesn't 
+    //returns true if the given location contains a ship else returns false
     boolean isOccupied(int row, int column)
     {
-        boolean check = false;
-        
         Ship current = grid[row][column];
     	if(!"EmptySea".equals(current.getShipType()))
     	{
-    		check = true;
+    		return true;
     	}
-        return check;
+        return false;
     }
     
-    
-    //generates a random number between 0 and 9 for use in placing the ships randomly
-    int randomCoordinateGenerator(int max)
-    {
-        int num = rnd.nextInt(max - 0);
-        return num;
-    }
-    
-    //returns a randomly generated position - vertical or horizontal depending on the output 
-    //of either true or false
-    boolean randomHorizontalGenerator()
-    {
-        return rnd.nextBoolean();
-    }
-    
-    //returns true if the location contain a ship that is still afloat (not emptysea)
-    //updates shotsFired, hitCount. This method should return true if the 
-    //users fires at the same coordinates and the ship is still afloat. once the
-    //ship has completly sunk then the method will return false if the user fires at 
-    //the same coordinates
-    //WORK IN CONJUNCTION WITH THE shootAt METHOD IN SHIP
+    //Prints Hit if the user hits a ship and the ship is not sunk or prints miss if the user hits a ship that is already sunk 
+    //or hits empty sea
     boolean shootAt(int row, int column)
     {
         boolean check = false;
@@ -172,27 +92,27 @@ public class Ocean
         		if(current.isSunk())
         		{
         			shipsSunk++;
-        			System.out.println("You just sank boat number:"+shipsSunk);
-        			System.out.println("Which was a "+ current.getShipType());
+        			System.out.println("hit");
+        			System.out.println("You just sank a "+ current.getShipType());
         		}
         		else
         		{
-        			System.out.println("You just hit part of a ship!");
+        			System.out.println();
+        			System.out.println("hit");
         		}
         	}
         	else//if the boat has already been sunk
         	{
-        		System.out.println("That ship has already been sunk!");
+        		System.out.println("miss");
         		check = false;
         	}
         }
         else//if shooting at an empty sea
         {
-        	System.out.println("You didn't hit anything!");
+        	System.out.println("miss");
         	current.hit[0] = true;//marks the empty sea array as true and thus ensuring the correct character is printed once the user has fired at this location
         	check = false;
         }
-        System.out.println("There are "+(10-shipsSunk)+" boats left to sink!");
         System.out.println();
         return check;
     }
@@ -219,12 +139,11 @@ public class Ocean
     //returns true if all ships have been sunk
     boolean isGameOver()
     {
-        boolean check = false;
         if(shipsSunk == 10)
         {
-        	check = true;
+        	return true;
         }
-        return check;
+        return false;
     }
     
     Ship[][] getShipArray()
@@ -232,20 +151,10 @@ public class Ocean
     	return grid;
     }
     
-    //used only for dev and testing as this will return the real array of where the ships are
-    //and not just the array the users sees. ONLY USE IN TESTING
-    /*Ship[][] getShipArray()
-    {
-        return grid[][];
-    }*/
-    
     //prints the ocean to the user. This will print the current status of the game 
-    //in the form of the array. It must only be called from the battleshipgame class 
-    //prints the relevant grid elements based on how the game is playing out instead of the actual location of the ships 
+    //in the form of the array. It must only be called from the battleshipgame class  
     void print()
     {
-        
-        
         for(int i = 0 ;i < GRIDSIZE ; i++)//prints the columns headers
         {
             System.out.print("  " + i);
@@ -269,7 +178,7 @@ public class Ocean
             		{
             			if(current.sectionHit(a,b))
                 		{
-                			System.out.print(" $ "); //IF THAT SECTION OF THE SHIP HAS BEEN HIT
+                			System.out.print(" S "); //IF THAT SECTION OF THE SHIP HAS BEEN HIT
                 		}
                 		else
                 		{

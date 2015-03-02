@@ -9,45 +9,69 @@ public class BattleshipGame
         System.out.print("\f");
         Scanner in = new Scanner(System.in);
         
-        Ocean game = new Ocean(); //this generates the blank 
-        game.placeAllShipsRandomly(); //generates the ships positions on the empty ocean array
+        Ocean game = new Ocean(); 
+        game.placeAllShipsRandomly(); 
         System.out.println();//used to provide a gap at the top of the output
         
-        //while the game has not finished
-        /*while(game.isGameOver() == false)
-        {
-            System.out.println("Please enter the row number: ");
-            int row = in.nextInt();
-            System.out.println("Please enter the column number: ");
-            int column = in.nextInt();
-            
-            // send the coordinates to the relevant methods
-            
-            game.print();
-        }*/
+        System.out.println("Welcome to Nick's Battleship Game!");
         
-        //Used for checking which object occupies the chosen location
+        System.out.println();
+      
+        
         while(!game.isGameOver())
         {
         	
-        	game.print(); // prints the array for the user to see before he/she chooses her first shot
+        	game.print(); 
         	System.out.println();
+			
         	System.out.print("Please enter a row: ");
-        	int row = in.nextInt();
+        	String row = in.next();
+        		
+        	while(intCheck(row)==false)
+        	{
+        		System.out.println("Please ensure that you enter a int between 0 and 9");
+        		row = in.next();
+        	}
+        	int checkedRow = (Integer.valueOf(row));
+        	
         	System.out.print("Please enter a column: ");
-        	int column = in.nextInt();
+        	String column = in.next();
+        	
+        	while(intCheck(column)==false)
+        	{
+        		System.out.println("Please ensure that you enter a int between 0 and 9");
+        		column = in.next();
+        	}
+        	int checkedColumn = (Integer.valueOf(column));
+        	
+        	game.shootAt(checkedRow, checkedColumn);
+        	
         	System.out.println();
-        	game.shootAt(row, column);
-        	
-        	
         }
         if(game.isGameOver())//once all ships have been sunk
         {
         	System.out.println("You have sunk all the ships! Congratulations!");
+        	System.out.println("You took "+ game.getShotsFired() + " Shots to complete the game");
         }
         
         in.close(); //closes the scanner 
     }
     
-    //add some validation for the input from the user to ensure they are int's
+    //Ensures the input from the user is an int between 0 and 9
+    static boolean intCheck(String a)
+    {
+    	boolean result = false;
+        
+        if((a.matches("[0-9]+"))&&(a.length() <= 1))
+        {
+            int b = (Integer.valueOf(a));
+            if( (b >= 0)  &&  (b<= 10) ) 
+            {
+              result = true;
+            }
+        }
+        return result;
+    }
+    
+   
 }
