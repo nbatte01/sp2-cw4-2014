@@ -23,7 +23,7 @@ public class Submarine extends Ship
         }
         else
         {
-        	return (" S ");
+        	return (" . ");
         }
     }
 }

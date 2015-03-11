@@ -51,3 +51,10 @@ Finalise the UI of the game in the ‘BattleshipGame’ class and tidy all metho
 SEVENTH COMMIT (02/03/2015)
 ————————————————————————————————
 All classes have been refined and the entire game is now complete. It must be noted that the individual subclasses of ships still have different letters which all need to be changed to ‘.’ before submission of assignment
+
+EIGHTH COMMIT (11/03/2015)
+————————————————————————————————
+Test classes have been created for the ‘BattleshipGame’, ‘Ship’ and ‘Ocean’ classes. All tests for the subclasses of ‘Ship’ are included within ‘testShip’
+
+Next steps 
+Run through entire program to ensure no bugs exists and/or redundant code. Ensure comments are placed correctly and contain the required information. x

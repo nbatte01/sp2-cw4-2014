@@ -23,7 +23,7 @@ public class Destroyer extends Ship
         }
         else
         {
-        	return (" D ");
+        	return (" . ");
         }
     }
 }

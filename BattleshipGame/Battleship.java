@@ -25,7 +25,7 @@ public class Battleship extends Ship
         }
         else
         {
-        	return (" B ");
+        	return (" . ");
         }
     }
 }

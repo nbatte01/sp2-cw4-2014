@@ -40,7 +40,7 @@ public class Ocean
     {		
 		Ship current = new Ship();
 		
-		for (int i = 0; i < NUMOFSHIPS; i++) 
+		for (int i = 0; i < NUMOFSHIPS; i++)
 		{
 			if(i == 0)current= new Battleship();
 			if(i >= 1)current = new Cruiser();
@@ -51,13 +51,13 @@ public class Ocean
             int tempColumn = rnd.nextInt(GRIDSIZE - 0);
             boolean tempHorizontal = rnd.nextBoolean();
             
-            while(!current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
+            while(!current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))//if the position is not suitable
             {
                 	tempRow = rnd.nextInt(GRIDSIZE - 0);
                     tempColumn = rnd.nextInt(GRIDSIZE - 0);
                     tempHorizontal = rnd.nextBoolean();
             }
-            current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
+            current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);//once a suitable position has been found
 		}
     }
     

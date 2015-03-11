@@ -50,19 +50,19 @@ public class Ship
     }
     
     //sets the value of the bowRow
-    void setBowRow(int row)
+    private void setBowRow(int row)
     {
         this.bowRow = row;
     }
     
     //sets the value of bowColumn
-    void setBowColumn(int column)
+    private void setBowColumn(int column)
     {
         this.bowColumn = column;
     }
     
     //sets the value of the instance variable horizontal
-    void setHorizontal(boolean horizontal)
+    private void setHorizontal(boolean horizontal)
     {
         this.horizontal = horizontal;
     }
