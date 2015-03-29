@@ -1,3 +1,11 @@
+/**
+ * @author Nicholas Jay Batten, Username: nbatte01, Date: 29/03/2015
+ * This code is created for the 4th and final assignment of the software and programming 2 module at 
+ * Birkebeck, University of London.
+ * 
+ *
+ */
+
 package BattleshipGame;
 
 public class Ship
@@ -9,13 +17,18 @@ public class Ship
     boolean[] hit;
     
     
-    //returns the row in which the bow is located
+    /**
+     * @return int - the row number of the bow of the ship
+     */
     int getBowRow()
     {
         return bowRow;
     }
     
-    //Initializes the hit array 
+    
+    /**
+     * 	Initializes the hit array
+     */
     void setHitArray()
     {
         hit = new boolean[this.getLength()]; //generates a new arrays with the length based on the length of the ship
@@ -25,51 +38,90 @@ public class Ship
         }
     }
     
-    //returns the column in which the bow is located
+    
+    /**
+     * @return int - the column numner where the bow of teh ship is located
+     */
     int getBowColumn()
     {
         return bowColumn;
     }
     
-    //returns whether the ship is horizontal or not
+    
+    /**
+     * @return boolean - true if the ship is horizontal and false if it is vertical
+     */
     boolean isHorizontal()
     {
         return horizontal;
     }
     
-    //returns the type of this ship 
+    
+    /**
+     * Return the type of ship in string format. This is overwritten by the subclasses of 'Ship' and thus
+     * the return of "test" is only used for testing purposes
+     * 
+     * @return String - type of ship
+     */
     String getShipType()
     {
         return ("test");
     }
     
-    //returns the length of the current ship. 
+    
+    /**
+     * @return int - the length of the current ship
+     */
     int getLength()
     {
         return length;
     }
     
-    //sets the value of the bowRow
+    
+    /**
+     * sets the value of 'bowRow'
+     * 
+     * @param row - passed from the 'placeShipAt' method
+     */
     private void setBowRow(int row)
     {
         this.bowRow = row;
     }
     
-    //sets the value of bowColumn
+        
+    /**
+     * sets the value of 'bowColumn'
+     * 
+     * @param column - passed from the 'placeShipAt' method
+     */
     private void setBowColumn(int column)
     {
         this.bowColumn = column;
     }
     
-    //sets the value of the instance variable horizontal
+    
+    /**
+     * Sets the value of horizontal
+     * 
+     * @param horizontal - passed from the 'placeShipAt' method
+     */
     private void setHorizontal(boolean horizontal)
     {
         this.horizontal = horizontal;
     }
     
-    //checks whether the ship can fit on the grid with the given parameters.
-    //Checks Bow, Stern, Port, Starboard and diagonal grid locations to the parameters passed.
-    //returns true if the coordinates passed as parameters are suitable to place the ship on
+    
+    /**
+     * Checks whether the passed ship parameters can fit onto the grid with overlapping another ship
+     * or being within 1 coordinate of another ship either vertically, horizontally or diagonally.
+     * Does NOT give value to bowRow, bowColumn, horizontal. Only returns whether the location is suitable
+     * 
+     * @param row - the row number where the proposed position of the ship's bow would be
+     * @param column - the column number where the proposed position of the ship's bow would be
+     * @param horizontal - Whether or not the proposed ship is horizontal or vertical
+     * @param ocean - received from the 'placeAllShipsRandomly' method in the 'Ocean' class for reference
+     * @return boolean - True if parameters passed are suitable coordinates for the ship, false otherwise
+     */
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean)
     {
     	int left = column -1;
@@ -140,10 +192,18 @@ public class Ship
     	return true; 
     }
     
-    //puts the ship into the ocean. This involves giving values to the bowRow
-    //bowColumn and horizontal instance variables in the instance of the ship class
-    //requests the grid array from the ocean class and fills the relevant elements of the array with the 
-    //relevant ship. The method will cycle through the grid array depending on the length of the current ship
+    
+    /**
+     * puts the ship into the ocean. This involves giving values to the bowRow
+     * bowColumn and horizontal instance variables in the instance of the 'Ship' class
+     * requests the grid array from the ocean class and fills the relevant elements of the array with the 
+     * relevant ship. The method will cycle through the grid array depending on the length of the current ship
+     * 
+     * @param row - The row number where the bow of the ship will be placed
+     * @param column - The column number where the bow of the ship will be placed
+     * @param horizontal - True if the ship will be placed horizontally, false otherwise 
+     * @param ocean - received from the 'placeAllShipsRandomly' method in the 'Ocean' class for reference
+     */
     void placeShipAt(int row, int column, boolean horizontal, Ocean ocean)
     {
     	this.setBowRow(row);
@@ -163,8 +223,14 @@ public class Ship
 		}
     }
     
-    //if part of the ship occupies the given row and column and the ship hasn't been sunk
-    //mark that part of the ship as hit and return true. 
+    
+    /**
+     * If part of a ship occupies the passed coordinates the return true, else false
+     * 
+     * @param row - The row number where the user wishes to shoot
+     * @param column - The column number where the user wishes to shoot
+     * @return - boolean - True if coordinates passed is the location of a ship, false otherwise
+     */
     boolean shootAt(int row, int column)
     {
         if(!this.isSunk())
@@ -185,12 +251,17 @@ public class Ship
         return false;
     }
     
-    //checks the hit array if every element is true then returns true
+    
+    /**
+     * Cycle through the 'hit' array to check whether all sections of the ship have been sunk
+     * 
+     * @return boolean - true if all sections of the current ship have been hit
+     */
     boolean isSunk()
     {
         for(int i = 0 ; i<this.hit.length;i++)
         {
-            if(!this.hit[i]) //cycles through the hit array 
+            if(!this.hit[i]) 
             {
             	return false;
             }
@@ -198,7 +269,13 @@ public class Ship
         return true;
     }
     
-    //returns true if the section has been hit
+    /**
+     * Returns a boolean variable from the 'hit' array to determine if a section of the ship has been hit or not
+     * 
+     * @param row - 
+     * @param column
+     * @return boolean - an element from the 'hit' array to determine if that section has been hit or not
+     */
     boolean sectionHit(int row, int column)
     {
     	int position;

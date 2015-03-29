@@ -58,3 +58,9 @@ Test classes have been created for the ‘BattleshipGame’, ‘Ship’ and ‘O
 
 Next steps 
 Run through entire program to ensure no bugs exists and/or redundant code. Ensure comments are placed correctly and contain the required information. 
+
+FINAL COMMIT (29/03/2015)
+———————————————————————————————-
+All methods have the required comments added. Excess comments have been removed and small changes have been made to several methods to improve code efficiency. 
+
+if more development time was allocated more checks would have been conducted to search for and remove redundant code.

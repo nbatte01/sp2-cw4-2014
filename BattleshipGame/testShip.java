@@ -1,3 +1,11 @@
+/**
+ * @author Nicholas Jay Batten, Username: nbatte01, Date: 29/03/2015
+ * This code is created for the 4th and final assignment of the software and programming 2 module at 
+ * Birkebeck, University of London.
+ * 
+ *
+ */
+
 package BattleshipGame;
 
 import static org.junit.Assert.*;
@@ -29,7 +37,6 @@ public class testShip
 	@Test	
 	public void testGetShipType()
 	{
-		Ocean game = new Ocean();
 		Destroyer d = new Destroyer();
 		assertEquals("destroyer",d.getShipType());
 		Battleship b = new Battleship();
@@ -38,6 +45,8 @@ public class testShip
 		assertEquals("cruiser",c.getShipType());
 		Submarine s = new Submarine();
 		assertEquals("submarine",s.getShipType());
+		EmptySea e = new EmptySea();
+		assertEquals("EmptySea",e.getShipType());
 	}
 	
 	@Test
@@ -76,7 +85,6 @@ public class testShip
 	@Test
 	public void testGetLength()
 	{
-		Ocean game = new Ocean();
 		Destroyer d = new Destroyer();
 		assertEquals(2,d.getLength());
 		Battleship b = new Battleship();
@@ -103,7 +111,6 @@ public class testShip
 	@Test
 	public void testToString()
 	{
-		Ocean game = new Ocean();
 		Destroyer d = new Destroyer();
 		assertEquals(" . ",d.toString());
 		Battleship b = new Battleship();

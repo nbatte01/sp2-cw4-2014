@@ -1,3 +1,11 @@
+/**
+ * @author Nicholas Jay Batten, Username: nbatte01, Date: 29/03/2015
+ * This code is created for the 4th and final assignment of the software and programming 2 module at 
+ * Birkebeck, University of London.
+ * 
+ *
+ */
+
 package BattleshipGame;
 
 import static org.junit.Assert.*;

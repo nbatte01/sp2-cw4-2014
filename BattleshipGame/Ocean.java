@@ -1,7 +1,14 @@
+/**
+ * @author Nicholas Jay Batten, Username: nbatte01, Date: 29/03/2015
+ * This code is created for the 4th and final assignment of the software and programming 2 module at 
+ * Birkebeck, University of London.
+ * 
+ *
+ */
+
 package BattleshipGame;
 
 import java.util.Random;
-//import java.util.ArrayList;
 
 public class Ocean
 {   
@@ -16,7 +23,10 @@ public class Ocean
     
     Random rnd = new Random();
 
-    //Constructor class that also fills the grid array with instances of the EmptySea class
+
+    /**
+     * Constructor class that also fills the grid array with instances of the EmptySea class
+     */
     Ocean()
     {
         shotsFired = 0;
@@ -33,9 +43,11 @@ public class Ocean
         
     }
 
-    //Places all ships randomly onto the grid by firstly generating a random Row, Column and horizontal(boolean variable) 
-    //then calling the 'okToPlaceShipAt' method in the Ship class to check whether the position is ok. If so the current ship
-    //is placed on the coordinates and the process repeats for each ship. 
+    /**
+     *Places all ships randomly onto the grid by firstly generating a random Row, Column and horizontal(boolean variable) 
+     *then calling the 'okToPlaceShipAt' method in the Ship class to check whether the position is ok. If so the current ship
+     *is placed on the coordinates and the process repeats for each ship. 
+     */
     public void placeAllShipsRandomly()
     {		
 		Ship current = new Ship();
@@ -51,17 +63,24 @@ public class Ocean
             int tempColumn = rnd.nextInt(GRIDSIZE - 0);
             boolean tempHorizontal = rnd.nextBoolean();
             
-            while(!current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))//if the position is not suitable
+            while(!current.okToPlaceShipAt(tempRow, tempColumn, tempHorizontal, this))
             {
                 	tempRow = rnd.nextInt(GRIDSIZE - 0);
                     tempColumn = rnd.nextInt(GRIDSIZE - 0);
                     tempHorizontal = rnd.nextBoolean();
             }
-            current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);//once a suitable position has been found
+            current.placeShipAt(tempRow, tempColumn, tempHorizontal, this);
 		}
     }
     
-    //returns true if the given location contains a ship else returns false
+    
+    /**
+     * returns true if the given location contains a ship else returns false
+     * 
+     * @param row - the row number 
+     * @param column - the column number
+     * @return boolean variable
+     */
     boolean isOccupied(int row, int column)
     {
         Ship current = grid[row][column];
@@ -72,15 +91,23 @@ public class Ocean
         return false;
     }
     
-    //Prints Hit if the user hits a ship and the ship is not sunk or prints miss if the user hits a ship that is already sunk 
-    //or hits empty sea
+    
+    /**
+     * Prints Hit if the user hits a ship and the ship is not sunk or prints miss if the user hits a ship that is already sunk 
+     * or hits empty sea
+     * 
+     * @param row - the row number the user wishes to shoot at
+     * @param column - the column number the user wishes to shoot at
+     * @return boolean variable
+     */
     boolean shootAt(int row, int column)
     {
         boolean check = false;
         
         Ship current = grid[row][column];
  
-        shotsFired++; //regardless of what happens in the method, an additional shot has been fired
+        shotsFired++;
+        System.out.println(); 
         
         if(isOccupied(row,column)==true)//if location contains a ship
         {
@@ -89,7 +116,7 @@ public class Ocean
         		current.shootAt(row, column);
         		hitCount++;
         		check = true;
-        		if(current.isSunk())
+        		if(current.isSunk())//if the current shot sinks the ship
         		{
         			shipsSunk++;
         			System.out.println("hit");
@@ -97,7 +124,6 @@ public class Ocean
         		}
         		else
         		{
-        			System.out.println();
         			System.out.println("hit");
         		}
         	}
@@ -116,43 +142,66 @@ public class Ocean
         System.out.println();
         return check;
     }
-    
-    //returns the number of shots fired
+
+  
+    /**
+     * @return int - the number of shots that have been fired during the game
+     */
     int getShotsFired()
     {
         return shotsFired;
     }
     
-    //returns the number of hits recorded - shots that hit a ship
-    //all hits are counted and not just the first to hit a coordinate 
+    
+    /**
+     * returns the number of hits recorded - shots that hit a ship 
+     * all hits are counted and not just the first to hit a coordinate 
+     * 
+     * @return int - the count of shots that have hit a ship
+     */
     int getHitCount()
     {
         return hitCount;
     }
     
-    //returns the number of ships that have been sunk in the game. max - 10
+    
+    /**
+     * @return int - number of ships that have been sunk during the current game
+     */
     int getShipsSunk()
     {
         return shipsSunk;
     }
     
-    //returns true if all ships have been sunk
+    
+    /**
+     * Signals the end of the game once all ships have been sunk
+     * 
+     * @return boolean - if all ships have been sunk
+     */
     boolean isGameOver()
     {
-        if(shipsSunk == 10)
+        if(shipsSunk == NUMOFSHIPS)
         {
         	return true;
         }
         return false;
     }
     
+    
+    /**
+     * @return 2D array - instances of the Ship class
+     */
     Ship[][] getShipArray()
     {
     	return grid;
     }
     
-    //prints the ocean to the user. This will print the current status of the game 
-    //in the form of the array. It must only be called from the battleshipgame class  
+  
+    /**
+     * prints the ocean to the user. This will print the current status of the game 
+     * in the form of the array. 
+     */
     void print()
     {
         for(int i = 0 ;i < GRIDSIZE ; i++)//prints the columns headers
